@@ -5,6 +5,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
+from matplotlib.ticker import AutoMinorLocator
 
 from .const import GOLDEN_RATIO
 from .file import get_invoker_dir, expand_relative
@@ -62,6 +63,13 @@ def new_regular(*args, **kwargs):
 
 def new_wide(*args, **kwargs):
     return new_mm(*args, figsize=sizes['wide'], **kwargs)
+
+
+def auto_minor_ticks(axs: Axes, x=True, y=True):
+    if x:
+        axs.xaxis.set_minor_locator(AutoMinorLocator())
+    if y:
+        axs.yaxis.set_minor_locator(AutoMinorLocator())
 
 
 def autogrid(axs: Axes):

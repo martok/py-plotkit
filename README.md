@@ -1,6 +1,6 @@
 # PlotKit
 
-Collection of some helpers and functions, mostly used by @martok.
+Collection of some helpers and functions, mostly used by [martok](https://github.com/martok).
 
 
 ## Installation
@@ -8,4 +8,27 @@ Collection of some helpers and functions, mostly used by @martok.
 Install using pip:
 
 ```pip install git+https://github.com/martok/py-plotkit.git#egg=PlotKit```
+
+## Usage
+
+Minimal example:
+
+```python
+import numpy as np
+import plotkit as pk
+
+pk.set_style('print')
+
+fig, (ax1, ax2) = pk.new_regular(1,2)
+t = np.arange(0.0, 2.0, 0.01)
+ax1.plot(t, 1 + np.sin(2*np.pi*t))
+pk.autogrid(ax1)
+ax2.plot(t, 1 + np.cos(2*np.pi*t))
+pk.auto_minor_ticks(ax2)
+pk.autogrid(ax2)
+pk.finalize(fig, 'example_output.png')
+```
+Result:
+![Example Output](doc/example_output.png)
+
 
