@@ -1,4 +1,3 @@
-import os
 from typing import Optional
 
 import matplotlib as mpl
@@ -14,12 +13,12 @@ from .style import set_style
 # apply default rcParams right after loading
 set_style()
 
-output_mode = 'auto'
+output_mode = "auto"
 """
-'file'        : only produce files
-'interactive' : show all plots, including those with filename, produce no files
-'both'        : produce files if requested, show all
-'auto'        : save if file name given, show if not
+"file"        : only produce files
+"interactive" : show all plots, including those with filename, produce no files
+"both"        : produce files if requested, show all
+"auto"        : save if file name given, show if not
 """
 
 output_location = get_invoker_dir()
@@ -28,8 +27,8 @@ base for relative file paths on output
 """
 
 sizes = {
-    'regular': (150 * GOLDEN_RATIO, 150),
-    'wide': (150 * GOLDEN_RATIO, 150)
+    "regular": (150 * GOLDEN_RATIO, 150),
+    "wide": (150 * GOLDEN_RATIO, 150)
 }
 """
 some template sizes for use with new_*, given in millimeters
@@ -48,9 +47,9 @@ def subplots(*args, **kwargs):
 
 
 def default_dpi(save=False):
-    if save and mpl.rcParams['savefig.dpi'] != 'figure':
-        return mpl.rcParams['savefig.dpi']
-    return mpl.rcParams['figure.dpi']
+    if save and mpl.rcParams["savefig.dpi"] != "figure":
+        return mpl.rcParams["savefig.dpi"]
+    return mpl.rcParams["figure.dpi"]
 
 
 def new_mm(*args, figsize, **kwargs):
@@ -58,11 +57,11 @@ def new_mm(*args, figsize, **kwargs):
 
 
 def new_regular(*args, **kwargs):
-    return new_mm(*args, figsize=sizes['regular'], **kwargs)
+    return new_mm(*args, figsize=sizes["regular"], **kwargs)
 
 
 def new_wide(*args, **kwargs):
-    return new_mm(*args, figsize=sizes['wide'], **kwargs)
+    return new_mm(*args, figsize=sizes["wide"], **kwargs)
 
 
 def auto_minor_ticks(axs: Axes, x=True, y=True):
@@ -73,16 +72,16 @@ def auto_minor_ticks(axs: Axes, x=True, y=True):
 
 
 def autogrid(axs: Axes):
-    axs.grid(which='major', linestyle='-')
-    axs.grid(which='minor', linestyle=':', linewidth=mpl.rcParams['grid.linewidth'] * 0.5,
-             alpha=mpl.rcParams['grid.alpha'] * 0.8)
+    axs.grid(which="major", linestyle="-")
+    axs.grid(which="minor", linestyle=":", linewidth=mpl.rcParams["grid.linewidth"] * 0.5,
+             alpha=mpl.rcParams["grid.alpha"] * 0.8)
 
 
 def finalize(fig: Figure, filename: Optional[str] = None):
-    if output_mode == 'both':
-        raise NotImplementedError("Unsupported due to errors with tight_layout")
-    do_save = filename and (output_mode == 'auto' or output_mode == 'file')
-    do_show = output_mode == 'interactive' or (output_mode == 'auto' and not filename)
+    if output_mode == "both":
+        raise NotImplementedError(f"Unsupported due to errors with tight_layout")
+    do_save = filename and (output_mode == "auto" or output_mode == "file")
+    do_show = output_mode == "interactive" or (output_mode == "auto" and not filename)
     if do_show:
         fig.show()
     if do_save:
