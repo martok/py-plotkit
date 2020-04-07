@@ -114,7 +114,7 @@ def set_grid(axs: Axes):
 
 
 def finalize(fig: Figure, filename: Optional[str] = None):
-    """Show and/or save the figure
+    """Show and/or save the figure, and close(dispose) it afterwards.
 
     :param Figure fig: Figure object to manipulate
     :param str filename: (optional) file name to save to
@@ -130,4 +130,6 @@ def finalize(fig: Figure, filename: Optional[str] = None):
     if do_save:
         filename = expand_relative(filename, output_location)
         fig.savefig(filename)
+    if do_show or do_save:
+        plt.close(fig)
     return filename
