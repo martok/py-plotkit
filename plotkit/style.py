@@ -4,6 +4,17 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 # https://matplotlib.org/tutorials/introductory/customizing.html#customizing-with-matplotlibrc-files
+# Units in matplotlib:
+#   figure size       : inches relative to figure.dpi
+#   font size         : 1pt=1/72"
+#   linewidth         : 1pt=1/72"
+#   savefig           : oversampled by savefig.dpi/figure.dpi
+#
+# In vanilla matplotlib (default 100dpi), a 4" figure is 400 pixels, and 72pt Text is 100px tall. The intention is
+# to get good representation on a screen, but while most displays are close to 100dpi, is is usually never exact.
+# Add desktop DPI scaling to the mix and it gets rather tedious for complex manual layouts. Fixing everything to
+# 72dpi and letting savefig deal with scaling is much more intuitive.
+
 styles = {
     "default": {
         "pk_use": "default",
@@ -46,7 +57,10 @@ def apply_styledef(pk_use=None, pk_pre=None, **rc):
 
 
 def set_style(target: Optional[str] = None):
+    """Apply a style target
+
+    :param str target: (optional) style target name, such as "print", "poster", ...
+    """
     if not target:
-        apply_styledef(**styles["default"])
-    else:
-        apply_styledef(**styles[target])
+        target = "default"
+    apply_styledef(**styles[target])
