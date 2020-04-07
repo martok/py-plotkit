@@ -87,3 +87,5 @@ def finalize(fig: Figure, filename: Optional[str] = None):
     if do_save:
         filename = expand_relative(filename, output_location)
         fig.savefig(filename)
+    return filename
+

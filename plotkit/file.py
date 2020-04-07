@@ -22,3 +22,9 @@ def expand_relative(path: str, relative_to: Optional[str] = None):
         if not relative_to:
             return os.path.abspath(path)
         return os.path.normpath(os.path.join(relative_to, path))
+
+
+def split_fname(path: str):
+    path, basename = os.path.split(path)
+    name, ext = os.path.splitext(basename)
+    return path, name, ext
