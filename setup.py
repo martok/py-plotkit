@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='plotkit',
-    version='0.0.4',
+    version='0.0.5',
     author='Martok',
     description='Collection of helpers for plotting with matplotlib',
     url='https://github.com/martok/py-plotkit',

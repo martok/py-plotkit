@@ -1,8 +1,10 @@
-from typing import Optional
+import itertools
+from typing import Optional, Union, List, Iterator
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
+from matplotlib.colors import Colormap
 from matplotlib.figure import Figure
 from matplotlib.ticker import AutoMinorLocator
 
@@ -134,3 +136,20 @@ def finalize(fig: Figure, filename: Optional[str] = None):
     if do_show or do_save:
         plt.close(fig)
     return filename
+
+
+def get_cmap_cycle(cmap: Union[Colormap, str], k: Optional[int] = None) -> Union[Iterator, List]:
+    """Return a cycler for colormaps.
+
+    If *k=None*, return the iterator, otherwise return a list of *k* elements.
+
+    :param (Colormap, str) cmap: colormap instance or cmap identifier
+    :param int k: (optional) number of items to return
+    :return:
+    """
+    if isinstance(cmap, str):
+        cmap = plt.get_cmap(cmap)
+    cycler = itertools.cycle(cmap.colors)
+    if k is not None:
+        return list(itertools.islice(cycler, k))
+    return cycler
