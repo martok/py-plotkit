@@ -18,10 +18,11 @@ def get_invoker_dir(follow_symlinks=True):
 
 
 def expand_relative(path: str, relative_to: Optional[str] = None):
-    if not os.path.isabs(path):
-        if not relative_to:
-            return os.path.abspath(path)
-        return os.path.normpath(os.path.join(relative_to, path))
+    if os.path.isabs(path):
+        return path
+    if not relative_to:
+        return os.path.abspath(path)
+    return os.path.normpath(os.path.join(relative_to, path))
 
 
 def split_fname(path: str):
