@@ -6,12 +6,13 @@ from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.ticker import AutoMinorLocator
 
-from .const import GOLDEN_RATIO
-from .file import get_invoker_dir, expand_relative
-from .style import set_style
+# re-import full modules for easier access
+from . import const
+from . import file
+from . import style
 
 # apply default rcParams right after loading
-set_style()
+style.set_style()
 
 output_mode = "auto"
 """
@@ -21,13 +22,13 @@ output_mode = "auto"
 "auto"        : save if file name given, show if not
 """
 
-output_location = get_invoker_dir()
+output_location = file.get_invoker_dir()
 """
 base for relative file paths on output
 """
 
 sizes = {
-    "regular": (150 * GOLDEN_RATIO, 150),
+    "regular": (150 * const.GOLDEN_RATIO, 150),
     "wide": (300, 150)
 }
 """
@@ -128,7 +129,7 @@ def finalize(fig: Figure, filename: Optional[str] = None):
     if do_show:
         fig.show()
     if do_save:
-        filename = expand_relative(filename, output_location)
+        filename = file.expand_relative(filename, output_location)
         fig.savefig(filename)
     if do_show or do_save:
         plt.close(fig)
