@@ -15,7 +15,7 @@ Minimal example:
 
 ```python
 import numpy as np
-import plotkit as pk
+import plotkit.plotkit as pk
 
 pk.set_style('print')
 
