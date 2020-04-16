@@ -116,6 +116,10 @@ def set_grid(axs: Axes):
              alpha=mpl.rcParams["grid.alpha"] * 0.8)
 
 
+def get_last_facecolor(axs: Axes):
+    return axs.lines[-1].get_color()
+
+
 def finalize(fig: Figure, filename: Optional[str] = None):
     """Show and/or save the figure, and close(dispose) it afterwards.
 
