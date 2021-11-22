@@ -7,7 +7,7 @@ Collection of some helpers and functions, mostly used by [martok](https://github
 
 Install using pip:
 
-```pip install git+https://github.com/martok/py-plotkit.git#egg=PlotKit```
+```pip install mplotkit```
 
 ## Usage
 
@@ -29,6 +29,6 @@ pk.set_grid(ax2)
 pk.finalize(fig, 'example_output.png')
 ```
 Result:
-![Example Output](doc/example_output.png)
+![Example Output](https://raw.githubusercontent.com/martok/py-plotkit/master/doc/example_output.png)
 
 
