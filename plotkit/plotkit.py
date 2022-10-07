@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap
 from matplotlib.figure import Figure
-from matplotlib.ticker import AutoMinorLocator
+from matplotlib.ticker import AutoMinorLocator, MaxNLocator, LogLocator
 
 # re-import full modules for easier access
 from . import const
@@ -163,3 +163,34 @@ def get_cmap_cycle(cmap: Union[Colormap, str], k: Optional[int] = None) -> Union
     if k is not None:
         return list(itertools.islice(cycler, k))
     return cycler
+
+
+def contour_levels(N: int, vmin: Optional[float] = None, vmax: Optional[float] = None,
+                   locator: Optional[MaxNLocator] = None, logscale=False, return_dict=True, **kwargs):
+    """Return levels (as argument dict) for Axes.contourf using vmin/vmax
+
+    :param int N: number of color steps to create
+    :param float vmin: lowest value (inclusive)
+    :param float vmax: highest value (inclusive)
+    :param Locator locator: (optional) Locator to use
+    :param bool logscale: (optional) use logarithmic scale
+    :param bool return_dict: (optional) return as argument dict for `contourf`
+    :return:
+    """
+    if vmin is not None and vmax is not None:
+        if locator is None:
+            if logscale:
+                locator = LogLocator()
+            else:
+                locator = MaxNLocator(N + 1, min_n_ticks=1)
+        lev = locator.tick_values(vmin, vmax)
+        kwargs["vmin"] = vmin
+        kwargs["vmax"] = vmax
+        kwargs["locator"] = locator
+        kwargs["levels"] = lev
+    else:
+        kwargs["levels"] = N
+    if return_dict:
+        return kwargs
+    else:
+        return kwargs["levels"]
