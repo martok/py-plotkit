@@ -31,7 +31,8 @@ styles = {
         #    "path": Embed characters as paths -- supported by most SVG renderers
         #    "svgfont": Embed characters as SVG fonts -- supported only by Chrome,
         #               Opera and Safari
-        "svg.fonttype": "none"
+        "svg.fonttype": "none",
+        "axes.formatter.useoffset": False,
     },
     "print": {
         "pk_pre": "default",
