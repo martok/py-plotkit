@@ -106,6 +106,19 @@ def set_ticks(axs: Axes, *, major: Optional[str] = None, minor: Optional[str] = 
     "y" in minor and do_setting(axs.yaxis, "minor")
 
 
+def set_same_ticks(axs: Axes):
+    """Change locator so that both axis use the same interval, while keeping current autorange
+
+    :param Axes axs: Axes object to manipulate
+    """
+    xvals = axs.get_xaxis().get_major_locator()()
+    yvals = axs.get_yaxis().get_major_locator()()
+    spacing = max(xvals[1] - xvals[0], yvals[1] - yvals[0])
+    from matplotlib.ticker import MultipleLocator
+    axs.get_xaxis().set_major_locator(MultipleLocator(spacing))
+    axs.get_yaxis().set_major_locator(MultipleLocator(spacing))
+
+
 def set_grid(axs: Axes):
     """Apply default grid settings to Axes
 
