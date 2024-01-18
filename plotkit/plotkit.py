@@ -139,6 +139,20 @@ def get_object_facecolor(obj):
     return None
 
 
+def _is_jupyter():
+    # https://stackoverflow.com/q/15411967
+    try:
+        shell = get_ipython().__class__.__name__
+        if shell == 'ZMQInteractiveShell':
+            return True   # Jupyter notebook or qtconsole
+        elif shell == 'TerminalInteractiveShell':
+            return False  # Terminal running IPython
+        else:
+            return False  # Other type (?)
+    except NameError:
+        return False      # Probably standard Python interpreter
+
+
 def finalize(fig: Figure, filename: Optional[str] = None):
     """Show and/or save the figure, and close(dispose) it afterwards.
 
@@ -152,7 +166,11 @@ def finalize(fig: Figure, filename: Optional[str] = None):
     do_save = filename and (output_mode == "auto" or output_mode == "file")
     do_show = output_mode == "interactive" or (output_mode == "auto" and not filename)
     if do_show:
-        fig.show()
+        if _is_jupyter():
+            from IPython.display import display
+            display(fig)
+        else:
+            fig.show()
     if do_save:
         filename = file.expand_relative(filename, output_location)
         fig.savefig(filename)
