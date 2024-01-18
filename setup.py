@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="mplotkit",
-    version="0.2.0",
+    version="0.3.0",
     author="Martok",
     author_email="martok@martoks-place.de",
     description="Collection of helpers for plotting with matplotlib",
