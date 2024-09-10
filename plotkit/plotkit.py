@@ -129,6 +129,23 @@ def set_same_ticks(axs: Axes):
     axs.get_yaxis().set_major_locator(MultipleLocator(spacing))
 
 
+def set_axis_colors(axs: Axes, color):
+    side = axs.yaxis.get_label_position() or "left"
+    axs.spines[side].set_color(color)
+    axs.yaxis.label.set_color(color)
+    axs.tick_params(axis="y", colors=color)
+
+
+def twinx(axs: Axes, offset: Optional[float] = None) -> Axes:
+    twin = axs.twinx()
+    for spine in axs.spines.keys():
+        twin.spines[spine].set_edgecolor(axs.spines[spine].get_edgecolor())
+    if offset is not None:
+        side = twin.yaxis.get_label_position() or "left"
+        twin.spines[side].set_position(("outward", offset))
+    return twin
+
+
 def set_grid(axs: Axes):
     """Apply default grid settings to Axes
 
