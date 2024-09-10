@@ -4,9 +4,10 @@ from typing import Optional, Union, List, Iterator
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
+from matplotlib.axis import Axis
 from matplotlib.colors import Colormap
 from matplotlib.figure import Figure
-from matplotlib.ticker import AutoMinorLocator, MaxNLocator, LogLocator
+from matplotlib.ticker import AutoMinorLocator, MaxNLocator, LogLocator, FuncFormatter, FormatStrFormatter
 
 # re-import full modules for easier access
 from . import const
@@ -66,6 +67,15 @@ def new_wide(*args, **kwargs):
     :rtype: figure, axes
     """
     return new_mm(*args, figsize=sizes["wide"], **kwargs)
+
+
+def set_axis_format(ax: Axis, format: str, use_locale=False):
+    if use_locale:
+        import locale
+        fmt = FuncFormatter(lambda x, pos: locale.format_string(format, x))
+    else:
+        fmt = FormatStrFormatter(format)
+    ax.set_major_formatter(fmt)
 
 
 def set_ticks(axs: Axes, *, major: Optional[str] = None, minor: Optional[str] = None, maxn: Optional[int] = None,
